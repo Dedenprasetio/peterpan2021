@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_silk/Dosen/daftarkonsul.dart';
+import 'package:flutter_silk/Dosen/lihatgrafik.dart';
+import 'package:flutter_silk/Dosen/verifkonsul.dart';
 
 
 
@@ -48,20 +51,41 @@ class _dsndashboardState extends State<dsndashboard> {    //<~~
               trailing: Icon(Icons.list_alt),   //<~~~
               subtitle: Text("Daftar Konsultasi"),  //<~~
               onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => daftarkonsul(title: "DAFTAR KONSULTASI")),  //<~~
+                );
 
               },
             ),
             ListTile(
-              title: Text("Lihat Grafik Pertemua"),   //<~~~
+              title: Text("Lihat Grafik Pertemuan"),   //<~~~
               trailing: Icon(Icons.graphic_eq_outlined),   //<~~
-              subtitle: Text("Grafik Pertemuan"),   //<~~~
+              subtitle: Text("Grafik Pertemuan"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => lihatgrafik(title: "GRAFIK PERTEMUAN")),  //<~~
+                );
+
+              },//<~~~
 
 
             ),
             ListTile(
               title: Text("Verifikasi Konsultasi"),   //<~~~
               trailing: Icon(Icons.verified),   //<~~
-              subtitle: Text("Verifikasi"),   //<~~~
+              subtitle: Text("Verifikasi"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => verifkonsul(title: "VERIFIKASI KONSULTASI")),  //<~~
+                );
+
+              },//<~~~
 
 
             ),

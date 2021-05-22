@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_silk/Konsultasi/AddKonsul.dart';
+import 'file:///D:/ProgWeb/xaamp/htdocs/Peterpan/flutter/lib/Mahasiswa/LihatDsn.dart';
 
 
 
@@ -48,15 +50,26 @@ class _mhsdashboardState extends State<mhsdashboard> {    //<~~
               trailing: Icon(Icons.people_alt),   //<~~~
               subtitle: Text("List Dosen"),  //<~~
               onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LihatDsn(title: "LIHAT DOSEN")),  //<~~
+                );
 
               },
             ),
             ListTile(
               title: Text("Pengajuan Jadwal Konsultasi"),   //<~~~
               trailing: Icon(Icons.schedule_outlined),   //<~~
-              subtitle: Text("Jadwal Konsultasi"),   //<~~~
+              subtitle: Text("Jadwal Konsultasi"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddKonsul(title: "PENGAJUAN KONSULTASI")),  //<~~
+                );
 
-
+              },//<~~~
             ),
             Divider(
               color: Colors.black,

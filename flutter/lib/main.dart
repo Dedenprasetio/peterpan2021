@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_silk/Dosen/dsndashboard.dart';
+import 'package:flutter_silk/Konsultasi/AddKonsul.dart';
+import 'package:flutter_silk/Mahasiswa/addmhs.dart';
 import 'package:flutter_silk/Mahasiswa/mhsdashboard.dart';
 
 
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: dsndashboard(),
+      home: AddKonsul(),
     );
   }
 }

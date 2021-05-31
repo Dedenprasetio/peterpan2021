@@ -3,46 +3,51 @@ import 'package:http/http.dart' as http;
 
 final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
-class AddKonsul extends StatefulWidget {
-  AddKonsul({Key key, this.title}) : super(key: key);
+class addmhs extends StatefulWidget {
+  addmhs({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _AddKonsulState createState() => _AddKonsulState(title);
+  _addmhsState createState() => _addmhsState(title);
 }
 
-class _AddKonsulState extends State<AddKonsul> {
+class _addmhsState extends State<addmhs> {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
   final String title;
-  var url = "http://192.168.1.3/Peterpan/slim/public/konsul/";
+  var url = "http://192.168.1.3/Peterpan/slim/public/mahasiswa/";
 
-  _AddKonsulState(this.title);
+  _addmhsState(this.title);
 
   bool isLoading = false;
 
   TextEditingController conNim = new TextEditingController();
-  TextEditingController conNidn = new TextEditingController();
-  TextEditingController conHari = new TextEditingController();
-  TextEditingController conTgl = new TextEditingController();
-  TextEditingController conJam = new TextEditingController();
-  TextEditingController conStat = new TextEditingController();
+  TextEditingController conNama = new TextEditingController();
+  TextEditingController conEmail = new TextEditingController();
+  TextEditingController conJk = new TextEditingController();
+  TextEditingController conNohp = new TextEditingController();
 
-  void AddKonsul(){
+  void addMhs() {
+
     http.post(url, body: {
       "nim": conNim.text,
-      "nidn": conNidn.text,
-      "hari": conHari.text,
-      "tgl": conTgl.text,
-      "jam": conJam.text
+      "nama_mhs": conNama.text,
+      "email": conEmail.text,
+      "jenis_kelamin": conJk.text,
+      "no_hp": conNohp.text
     });
   }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.brown,
           title: Text(widget.title),
         ),
         body: Center(
@@ -54,7 +59,7 @@ class _AddKonsulState extends State<AddKonsul> {
                   controller: conNim,
                   decoration: InputDecoration(
                       labelText: "NIM",
-                      hintText: "Cth : 72180201",
+                      hintText: "Contoh : 72180201",
                       border: OutlineInputBorder(),
                       contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0)
                   ),
@@ -62,10 +67,10 @@ class _AddKonsulState extends State<AddKonsul> {
                 SizedBox(height: 5,
                 ),
                 TextFormField(
-                  controller: conNidn,
+                  controller: conNama,
                   decoration: InputDecoration(
-                      labelText: "Pilih Dosen",
-                      hintText: "--------",
+                      labelText: "NAMA LENGKAP",
+                      hintText: "Contoh : Deden Prasetio",
                       border: OutlineInputBorder(),
                       contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0)
                   ),
@@ -73,10 +78,10 @@ class _AddKonsulState extends State<AddKonsul> {
                 SizedBox(height: 5,
                 ),
                 TextFormField(
-                  controller: conHari,
+                  controller: conEmail,
                   decoration: InputDecoration(
-                      labelText: "Hari",
-                      hintText: "Cth : Senin",
+                      labelText: "Email",
+                      hintText: "Contoh : deden.prasetio@si.ukdw.ac.id",
                       border: OutlineInputBorder(),
                       contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0)
                   ),
@@ -84,27 +89,21 @@ class _AddKonsulState extends State<AddKonsul> {
                 SizedBox(height: 5,
                 ),
                 TextFormField(
-                  controller: conTgl,
+                  controller: conJk,
                   decoration: InputDecoration(
-                      labelText: "Tanggal",
-                      hintText: "Cth : yyyy-mm-dd",
+                      labelText: "Jenis Kelamin",
+                      hintText: "Contoh : L",
                       border: OutlineInputBorder(),
                       contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0)
                   ),
                 ),
                 SizedBox(height: 5,
-                ),
-                TextFormField(
-                  controller: conJam,
-                  decoration: InputDecoration(
-                      labelText: "Tentukan Jam",
-                      hintText: "Cth : 10:00 WIB - 11:00 WIB",
-                      border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0)
-                  ),
                 ),
                 MaterialButton(
-                  minWidth: MediaQuery.of(context).size.width,
+                  minWidth: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
                   padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                   color: Colors.blue,
                   onPressed: () {
@@ -113,11 +112,12 @@ class _AddKonsulState extends State<AddKonsul> {
                       builder: (context) {
                         return AlertDialog(
                           title: Text("Simpan Data"),
-                          content: Text("Apakah Anda akan menyimpan data ini?"),
+                          content: Text(
+                              "Apakah Anda akan menyimpan data ini?"),
                           actions: <Widget>[
                             FlatButton(
                                 onPressed: () {
-                                  AddKonsul();
+                                  addMhs();
                                   Navigator.pop(context);
                                   Navigator.pop(context);
                                 },

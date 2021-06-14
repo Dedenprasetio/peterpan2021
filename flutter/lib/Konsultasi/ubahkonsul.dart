@@ -1,37 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_silk/Mahasiswa/listpengajuan.dart';
+import 'package:flutter_silk/Mahasiswa/mhsdashboard.dart';
 import 'package:http/http.dart' as http;
 
-final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
+class ubahkonsul extends StatefulWidget {
+  final List list;
+  final int index;
 
-class AddKonsul extends StatefulWidget {
-  AddKonsul({Key key, this.title}) : super(key: key);
-
-  final String title;
-
+  ubahkonsul({this.list, this.index});
   @override
-  _AddKonsulState createState() => _AddKonsulState(title);
+  _ubahkonsulState createState() => _ubahkonsulState();
 }
 
-class _AddKonsulState extends State<AddKonsul> {
-  final GlobalKey<FormState> _formState = GlobalKey<FormState>();
-  final String title;
-  var url = "http://192.168.1.7/peterpan/slim/public/konsul/";
+class _ubahkonsulState extends State<ubahkonsul> {
 
-  _AddKonsulState(this.title);
+  TextEditingController conNim;
+  TextEditingController conNidn;
+  TextEditingController conTopik;
+  TextEditingController conHari;
+  TextEditingController conTgl;
+  TextEditingController conJam;
+  TextEditingController conStat;
 
-  bool isLoading = false;
-
-  TextEditingController conNim = new TextEditingController();
-  TextEditingController conNidn = new TextEditingController();
-  TextEditingController conTopik = new TextEditingController();
-  TextEditingController conHari = new TextEditingController();
-  TextEditingController conTgl = new TextEditingController();
-  TextEditingController conJam = new TextEditingController();
-  TextEditingController conStat = new TextEditingController();
-
-  void AddKonsul(){
-    http.post(url, body: {
-      "nim": conNim.text,
+  void UbahData(){
+    var url="http://192.168.1.7/peterpan/flutter/lib/crud/ubahkonsul.php";
+    http.post(url,body: {
+      "idKonsul": widget.list[widget.index]['idKonsul'],
+      "nim": widget.list[widget.index]['nim'],
       "nidn": conNidn.text,
       "topik": conTopik.text,
       "hari": conHari.text,
@@ -42,30 +37,27 @@ class _AddKonsulState extends State<AddKonsul> {
   }
 
   @override
+    void initState(){
+    conNidn= new TextEditingController(text: widget.list[widget.index]['nidn']);
+    conTopik= new TextEditingController(text: widget.list[widget.index]['topik']);
+    conHari= new TextEditingController(text: widget.list[widget.index]['hari']);
+    conTgl= new TextEditingController(text: widget.list[widget.index]['tgl']);
+    conJam= new TextEditingController(text: widget.list[widget.index]['jam']);
+    conStat= new TextEditingController(text: widget.list[widget.index]['status_konsul']);
+    super.initState();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.brown,
-          title: Text(widget.title),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child:ListView(
-            children: [
+      appBar: new AppBar(title: new Text("UBAH JADWAL"),),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: ListView(
+          children: <Widget>[
             new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                TextFormField(
-                  controller: conNim,
-                  decoration: InputDecoration(
-                      labelText: "NIM",
-                      hintText: "Cth : 72180201",
-                      border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0)
-                  ),
-                ),
-                SizedBox(height: 5,
-                ),
                 TextFormField(
                   controller: conNidn,
                   decoration: InputDecoration(
@@ -128,14 +120,17 @@ class _AddKonsulState extends State<AddKonsul> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: Text("Pengajuan Konsultasi"),
-                          content: Text("Apakah Anda yakin ingin mengajukan data diatas?"),
+                          title: Text("Ubah Data"),
+                          content: Text("Apakah Anda akan mengubah data ini?"),
                           actions: <Widget>[
                             FlatButton(
                                 onPressed: () {
-                                  AddKonsul();
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
+                                  UbahData();
+                                  Navigator.of(context).push(
+                                    new MaterialPageRoute(
+                                        builder: (BuildContext context)=> new DashboardMhs()
+                                    )
+                                  );
                                 },
                                 child: Text("Ya")
                             ),
@@ -151,7 +146,7 @@ class _AddKonsulState extends State<AddKonsul> {
                     );
                   },
                   child: Text(
-                    "AJUKAN KONSULTASI",
+                    "UBAH DATA",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white,
@@ -160,10 +155,10 @@ class _AddKonsulState extends State<AddKonsul> {
                   ),
                 )
               ],
-            ),
-            ]
-          ),
-        )
+            )
+          ],
+        ),
+      ),
     );
   }
 }

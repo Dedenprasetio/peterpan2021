@@ -1,29 +1,29 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_silk/Dosen/detailkonsul.dart';
 import 'package:flutter_silk/Mahasiswa/detailLihatDsn.dart';
+import 'package:flutter_silk/Mahasiswa/detailpengajuan.dart';
 import 'package:http/http.dart' as http;
-class verifkonsul extends StatefulWidget {
-  verifkonsul({Key key, this.title}) : super(key: key);
+class listpengajuan extends StatefulWidget {
+  listpengajuan({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _verifkonsulState createState() => _verifkonsulState();
+  _listpengajuanState createState() => _listpengajuanState();
 }
 
-class _verifkonsulState extends State<verifkonsul> {
+class _listpengajuanState extends State<listpengajuan> {
 
   Future<List> getData() async {
-    final response= await http.get("http://192.168.1.7/peterpan/flutter/lib/crud/verif.php");
+    final response= await http.get("http://192.168.1.7/peterpan/flutter/lib/crud/pengajuan.php");
     return jsonDecode(response.body);
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: new AppBar(title: new Text("VERIFIKASI JADWAL"),),
+        appBar: new AppBar(title: new Text("DAFTAR PENGAJUAN"),),
         body: new FutureBuilder<List>(
             future: getData() ,
             builder: (context, snapshot){
@@ -54,14 +54,14 @@ class ItemList extends StatelessWidget{
           child:new GestureDetector(
             onTap: ()=>Navigator.of(context).push(
                 new MaterialPageRoute(
-                    builder: (BuildContext context)=> new detailkonsul(list:list, index: i,)
+                    builder: (BuildContext context)=> new detailpengajuan(list:list, index: i,)
                 )
             ),
             child: new Card(
               child: new ListTile(
                 title: new Text("TOPIK : ${list[i]['topik']}"),
                 leading: new Icon(Icons.people_alt),
-                subtitle: new Text("Nama Mahasiswa : ${list[i]['nama_mhs']}"),
+                subtitle: new Text("Status Verifikasi : ${list[i]['status_konsul']}"),
               ),
             ),
           ),

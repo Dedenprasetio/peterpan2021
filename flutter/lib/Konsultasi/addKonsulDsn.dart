@@ -1,49 +1,48 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
-class AddKonsul extends StatefulWidget {
-  AddKonsul({Key key, this.title}) : super(key: key);
+class AddKonsulDsn extends StatefulWidget {
+  AddKonsulDsn({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _AddKonsulState createState() => _AddKonsulState(title);
+  _AddKonsulDsnState createState() => _AddKonsulDsnState(title);
 }
 
-class _AddKonsulState extends State<AddKonsul> {
+class _AddKonsulDsnState extends State<AddKonsulDsn> {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
   final String title;
-  var url = "http://192.168.1.7/peterpan/slim/public/konsul/";
+  var url = "http://192.168.1.7/Peterpan/slim/public/konsul/";
 
-  _AddKonsulState(this.title);
+  _AddKonsulDsnState(this.title);
 
   bool isLoading = false;
 
-  TextEditingController conNim = new TextEditingController();
   TextEditingController conNidn = new TextEditingController();
   TextEditingController conTopik = new TextEditingController();
   TextEditingController conHari = new TextEditingController();
   TextEditingController conTgl = new TextEditingController();
   TextEditingController conJam = new TextEditingController();
-  TextEditingController conStat = new TextEditingController();
 
-  void AddKonsul(){
+  void AddKonsulDsn(){
     http.post(url, body: {
-      "nim": conNim.text,
+      "nim": '0',
       "nidn": conNidn.text,
       "topik": conTopik.text,
       "hari": conHari.text,
       "tgl": conTgl.text,
       "jam": conJam.text,
-      "status_konsul": 'Menunggu'
+      "status_konsul": 'Disetujui'
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.brown,
           title: Text(widget.title),
@@ -51,25 +50,14 @@ class _AddKonsulState extends State<AddKonsul> {
         body: Padding(
           padding: const EdgeInsets.all(10.0),
           child:ListView(
-            children: [
+            children:[
             new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                TextFormField(
-                  controller: conNim,
-                  decoration: InputDecoration(
-                      labelText: "NIM",
-                      hintText: "Cth : 72180201",
-                      border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0)
-                  ),
-                ),
-                SizedBox(height: 5,
-                ),
-                TextFormField(
+                TextField(
                   controller: conNidn,
                   decoration: InputDecoration(
-                      labelText: "Pilih Dosen",
+                      labelText: "Masukkan NIDN",
                       hintText: "--------",
                       border: OutlineInputBorder(),
                       contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0)
@@ -77,18 +65,18 @@ class _AddKonsulState extends State<AddKonsul> {
                 ),
                 SizedBox(height: 5,
                 ),
-                TextFormField(
+                TextField(
                   controller: conTopik,
                   decoration: InputDecoration(
                       labelText: "Masukkan Topik",
-                      hintText: "Topik Anda",
+                      hintText: " ",
                       border: OutlineInputBorder(),
                       contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0)
                   ),
                 ),
                 SizedBox(height: 5,
                 ),
-                TextFormField(
+                TextField(
                   controller: conHari,
                   decoration: InputDecoration(
                       labelText: "Hari",
@@ -99,7 +87,7 @@ class _AddKonsulState extends State<AddKonsul> {
                 ),
                 SizedBox(height: 5,
                 ),
-                TextFormField(
+                TextField(
                   controller: conTgl,
                   decoration: InputDecoration(
                       labelText: "Tanggal",
@@ -110,7 +98,7 @@ class _AddKonsulState extends State<AddKonsul> {
                 ),
                 SizedBox(height: 5,
                 ),
-                TextFormField(
+                TextField(
                   controller: conJam,
                   decoration: InputDecoration(
                       labelText: "Tentukan Jam",
@@ -128,12 +116,12 @@ class _AddKonsulState extends State<AddKonsul> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: Text("Pengajuan Konsultasi"),
-                          content: Text("Apakah Anda yakin ingin mengajukan data diatas?"),
+                          title: Text("Simpan Data"),
+                          content: Text("Apakah Anda akan menyimpan data ini?"),
                           actions: <Widget>[
                             FlatButton(
                                 onPressed: () {
-                                  AddKonsul();
+                                  AddKonsulDsn();
                                   Navigator.pop(context);
                                   Navigator.pop(context);
                                 },
@@ -151,7 +139,7 @@ class _AddKonsulState extends State<AddKonsul> {
                     );
                   },
                   child: Text(
-                    "AJUKAN KONSULTASI",
+                    "Simpan",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white,

@@ -86,13 +86,14 @@ $app->post("/konsul/", function (Request $request, Response $response){
 
     $konsul = $request->getParsedBody();
 
-    $sql = "INSERT INTO konsul (nim,nidn,hari,tgl, jam, status_konsul) 
-            VALUE (:nim,:nidn,:hari,:tgl,:jam,:status_konsul)";
+    $sql = "INSERT INTO konsul (nim,nidn,topik,hari,tgl, jam, status_konsul) 
+            VALUE (:nim,:nidn,:topik,:hari,:tgl,:jam,:status_konsul)";
     $stmt = $this->db->prepare($sql);
 
     $data = [
         ":nim" => $konsul["nim"],
         ":nidn" => $konsul["nidn"],
+	":topik" => $konsul["topik"],
         ":hari" => $konsul["hari"],
         ":tgl" => $konsul["tgl"],
         ":jam" => $konsul["jam"],
@@ -119,7 +120,7 @@ $app->get("/konsul/", function (Request $request, Response $response){
 $app->put("/konsul/{id}", function (Request $request, Response $response, $args){
     $konsul_id = $args["id"];
     $ks = $request->getParsedBody();
-    $sql = "UPDATE konsul SET nim=:nim, nidn=:nidn, hari=:hari, tgl=:tgl, jam=:jam,
+    $sql = "UPDATE konsul SET nim=:nim, nidn=:nidn, topik=:topik, hari=:hari, tgl=:tgl, jam=:jam,
             status_konsul=:status_konsul WHERE idKonsul=:idKonsul";
     $stmt = $this->db->prepare($sql);
     
@@ -127,6 +128,7 @@ $app->put("/konsul/{id}", function (Request $request, Response $response, $args)
         ":idKonsul" => $konsul_id,
         ":nim" => $ks["nim"],
         ":nidn" => $ks["nidn"],
+	":topik" => $ks["topik"],
         ":hari" => $ks["hari"],
         ":tgl" => $ks["tgl"],
         ":jam" => $ks["jam"],

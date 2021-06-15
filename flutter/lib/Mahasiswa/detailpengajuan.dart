@@ -75,9 +75,11 @@ class _detailpengajuanState extends State<detailpengajuan> {
                   new Text("Jam : ${widget.list[widget.index]['jam']}", style: new TextStyle(fontSize: 15.0),),
                   new Padding(padding: const EdgeInsets.only(top: 30.0),),
 
+                  
                   new Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
+
                       new RaisedButton(
                         child:  new Text("UBAH"),
                         color: Colors.greenAccent,

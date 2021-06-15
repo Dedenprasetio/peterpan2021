@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_silk/Dosen/chart.dart';
 import 'package:flutter_silk/Dosen/dsndaftarkonsul.dart';
 import 'package:flutter_silk/Dosen/verifkonsul.dart';
 import 'package:flutter_silk/Konsultasi/addKonsulDsn.dart';
@@ -90,6 +91,11 @@ class _DashboardDsnState extends State<DashboardDsn> {    //<~~
               trailing: Icon(Icons.graphic_eq_outlined),   //<~~
               subtitle: Text("Grafik Pertemuan"),
               onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => charts()),  //<~~
+                );
 
               },//<~~~
             ),
